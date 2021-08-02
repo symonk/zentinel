@@ -18,6 +18,15 @@ def build_configuration() -> Configuration:
         dest="target",
         help="Domain or ip address of the target server",
     )
+    parser.add_argument(
+        "--half-open",
+        "--syn-ack-only",
+        action="store_true",
+        default=False,
+        dest="half_open",
+        type=bool,
+        help="Should zentinel avoid establishing the full 3-way handshake on each port and drop after SYN-ACK",
+    )
     return Configuration(**vars(parser.parse_args()))
 
 
