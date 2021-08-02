@@ -17,23 +17,23 @@ Zentinel
 
 ----
 
-## Legal Disclaimer
---------------------
+Legal Disclaimer
+-----------------
 
 Under **NO** circumstances should you use this package to perform scans against any piece of infrastructure in
 which you do **NOT** have explicit consent to do so.  I will take no responsibility for any consequences brought
 upon yourself for scanning systems in which you do **NOT** have explicit consent.
 
 
-## Zentinel
-------------
+Zentinel
+--------
 Zentinel sits on top of pythons async programming concepts to allow concurrent port scanning feed back
 for administrators to test on their own systems.  With simple reporting, it is lightweight yet elegant
 to use.
 
 .. image:: .github/.images/logo.png
   :class: with-border
-  :width: 800
+  :width: 30
   :height: 300
 
 
