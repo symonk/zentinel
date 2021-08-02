@@ -33,7 +33,3 @@ to use.
 
 .. image:: .github/.images/projlogo.png
   :class: with-border
-
-
-
-
