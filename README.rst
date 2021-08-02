@@ -31,9 +31,8 @@ Zentinel sits on top of pythons async programming concepts to allow concurrent p
 for administrators to test on their own systems.  With simple reporting, it is lightweight yet elegant
 to use.
 
-.. image:: .github/.images/logo.png
+.. image:: .github/.images/projlogo.png
   :class: with-border
-  :width: 1280
 
 
 
