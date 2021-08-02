@@ -25,11 +25,12 @@ which you do **NOT** have explicit consent to do so.  I will take no responsibil
 upon yourself for scanning systems in which you do **NOT** have explicit consent.
 
 
+.. image:: .github/.images/projlogo.png
+  :class: with-border
+
+
 Zentinel
 --------
 Zentinel sits on top of pythons async programming concepts to allow concurrent port scanning feed back
 for administrators to test on their own systems.  With simple reporting, it is lightweight yet elegant
 to use.
-
-.. image:: .github/.images/projlogo.png
-  :class: with-border
