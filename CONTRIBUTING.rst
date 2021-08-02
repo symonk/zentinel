@@ -3,11 +3,11 @@ Contributing
 
  .. code-block:: sh
 
-    git clone git@github.com:symonk/restpite.git
+    git clone git@github.com:symonk/zentinel.git
     cd restpite
     python -m venv .venv
     source .venv/bin/activate
-    pip install -e ".[testing]"
+    pip install -e ".[tests]"
     pre-commit install
     # make a branch and apply changes
     tox -e linting, py38
