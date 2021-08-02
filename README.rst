@@ -23,8 +23,8 @@ Zentinel
 Zentinel sits on top of pythons async programming concepts to allow concurrent port scanning feed back
 for administrators to test on their own systems.  Powerful, yet lightweight with a robust configuration.
 By default zentinel will attempt to complete a full TCP connect scan on each of the ports, however you
-can pass --half-open in order to terminate the connection after a SYN-ACK is received from the remote
-server instead of establish a full 3-way handshake and TCP connection.
+can pass --half-open in order to terminate the RST after a SYN-ACK is received from the remote
+server instead of establish a full 3-way handshake & connection.
 
 ----
 
