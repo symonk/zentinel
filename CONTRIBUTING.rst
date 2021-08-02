@@ -7,7 +7,7 @@ Contributing
     cd restpite
     python -m venv .venv
     source .venv/bin/activate
-    pip install -e ".[tests]"
+    pip install -e ".[testsgit s]"
     pre-commit install
     # make a branch and apply changes
     tox -e linting, py38
