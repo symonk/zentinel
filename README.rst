@@ -33,8 +33,8 @@ to use.
 
 .. image:: .github/.images/logo.png
   :class: with-border
-  :width: 30
-  :height: 300
+  :width: 100%
+  :height: 10%
 
 
 
