@@ -13,7 +13,6 @@ class Scanner:
     def __init__(self, target: str):
         self.target = target
         self.ports = set(range(1, 1025))  # TODO: Make this configurable later & smarter.
-        self._event_loop = asyncio.get_event_loop()
         self.scan_time = 0.0
         self.scan_results: Dict[str, ConnectScanResult] = {}
 
@@ -25,7 +24,9 @@ class Scanner:
         """
         start = time.perf_counter()
         yield
-        self.scan_time += time.perf_counter() - start
+        end_time = time.perf_counter() - start
+        print(f"Total scan duration: {end_time} seconds")
+        self.scan_time += end_time
 
     async def _coroutine_for_port(self, port: int) -> ConnectScanResult:
         try:
@@ -35,7 +36,8 @@ class Scanner:
             return ConnectScanResult(port=port, status="closed")
 
     async def execute(self) -> None:
-        await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+        with self.benchmark():
+            await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
 
     def __aenter__(self) -> Scanner:
         ...
