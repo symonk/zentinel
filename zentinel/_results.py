@@ -1,4 +1,8 @@
+from dataclasses import dataclass
+
+
+@dataclass(repr=True, frozen=True, eq=True)
 class ConnectScanResult:
-    def __init__(self, port: int, status: str = "closed") -> None:
-        self.port = port
-        self.status = status
+    port: int
+    status: str = "closed"
+    service: str = "unknown"
