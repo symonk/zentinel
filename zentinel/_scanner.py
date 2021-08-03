@@ -27,8 +27,15 @@ class Scanner:
         yield
         self.scan_time += time.perf_counter() - start
 
-    def execute(self):
-        print(f"Scanning: {self.target} for: {self.ports}")
+    async def _coroutine_for_port(self, port: int) -> ConnectScanResult:
+        try:
+            await asyncio.open_connection(self.target, port)
+            return ConnectScanResult(port=port, status="open")
+        except OSError:
+            return ConnectScanResult(port=port, status="closed")
+
+    async def execute(self) -> None:
+        await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
 
     def __aenter__(self) -> Scanner:
         ...
