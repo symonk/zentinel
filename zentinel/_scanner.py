@@ -51,9 +51,3 @@ class Scanner:
     async def execute(self) -> None:
         with self.benchmark():
             await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
-
-    def __aenter__(self) -> Scanner:
-        ...
-
-    def __aexit__(self, exc_type, exc_val, exc_tb) -> Scanner:
-        ...
