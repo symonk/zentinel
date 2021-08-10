@@ -12,9 +12,9 @@ from ._results import ConnectScanResult
 
 
 class Scanner:
-    def __init__(self, target: str):
+    def __init__(self, target: str, ports: typing.Sequence[int] = range(1, 10000)):
         self.target = target
-        self.ports = set(range(1, 1025))  # TODO: Make this configurable later & smarter.
+        self.ports = ports
         self.scan_time = 0.0
         self.scan_results: Dict[int, ConnectScanResult] = {}
 
@@ -24,7 +24,7 @@ class Scanner:
         Decorator for benchmarking the actual scan runtime and updating the scanners
         :class:`float` scan_time.  This is used later for reporting.
         """
-        print("Executing coroutines!")
+        print(f"Executing coroutines for ports in range: {min(self.ports)} -> {max(self.ports)}")
         start = time.perf_counter()
         yield
         end_time = time.perf_counter() - start
