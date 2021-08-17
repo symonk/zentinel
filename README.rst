@@ -15,16 +15,14 @@ Zentinel
 .. image:: https://codecov.io/gh/symonk/zentinel/branch/master/graph/badge.svg?token=E7SVA868NR
     :target: https://codecov.io/gh/symonk/zentinel
 
-.. image:: .github/.images/projlogo.png
-  :class: with-border
-
 Zentinel
----------
-Zentinel sits on top of pythons async programming concepts to allow concurrent port scanning feed back
-for administrators to test on their own systems.  Powerful, yet lightweight with a robust configuration.
-By default zentinel will attempt to complete a full TCP connect scan on each of the ports, however you
-can pass --half-open in order to terminate the RST after a SYN-ACK is received from the remote
-server instead of establish a full 3-way handshake & connection.
+=========
+
+Zentinel is a fully async TCP port scanner written on top of asyncio.  It's sole purpose is for administrators
+to test services that are exposed on their infrastructure with a simple python library.  Zentinel is powerful
+and highly configurable, by default it will complete full TCP connect scans on each of the ports, however to
+perform a SYN -> ACK -> RST --half-open can be specified which will prevent a full 3 way handshake and connection.
+Zentinel is lightning fast, compared to other multi threaded models.
 
 ----
 
