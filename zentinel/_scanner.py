@@ -18,8 +18,8 @@ class Scanner:
         self.scan_time = 0.0
         self.scan_results: Dict[int, ConnectScanResult] = {}
 
-    @contextlib.contextmanager
-    def benchmark(self) -> typing.Generator[None, None, None]:
+    @contextlib.asynccontextmanager
+    def async benchmark(self) -> typing.Generator[None, None, None]:
         """
         Decorator for benchmarking the actual scan runtime and updating the scanners
         :class:`float` scan_time.  This is used later for reporting.
@@ -48,6 +48,6 @@ class Scanner:
         except OSError:
             self.scan_results[port] = ConnectScanResult(port)
 
+    @benchmark()
     async def execute(self) -> None:
-        with self.benchmark():
-            await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+        await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
