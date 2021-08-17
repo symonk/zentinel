@@ -43,7 +43,7 @@ class Scanner:
         try:
             await asyncio.open_connection(self.target, port)
             # todo: is this blocking?
-            service = socket.getservbyport(port)
+            service = socket.getservbyport(port, 'tcp')
             self.scan_results[port] = ConnectScanResult(port, "open", service)
         except OSError:
             self.scan_results[port] = ConnectScanResult(port)
