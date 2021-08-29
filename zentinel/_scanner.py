@@ -21,8 +21,8 @@ class Scanner:
     it will scan a remote server with lightning speed, however this can potentially
     overwhelm a server so care is advised.
 
-        :param target: The target url, localhost by default
-        :param ports: A distinct collection of ports to scan
+    :param target: The target url, localhost by default
+    :param ports: A distinct collection of ports to scan
     """
 
     def __init__(self, target: str, ports: typing.Set[int]):
@@ -46,13 +46,32 @@ class Scanner:
         self.scan_time += end_time
 
     async def _coroutine_for_port(self, port: int) -> None:
+        """
+        Performs a TCP connect scan against the port.  if the port is open it will
+        subsequently attempt to resolve which service is running on that port,
+        this may not always be possible tho.  In the event that the TCP connection
+        fails we will also store the closed port information for inspection later
+
+        :param port: The (integer) port to perform a full TCP connect / scan against
+        :return: None
+        """
         try:
             _ = await asyncio.open_connection(self.target, port)
+            # TODO: Is this socket blocking IO? is there a builtins async equivalent? needs investigation.
             service = socket.getservbyport(port, TCP_PROTOCOL_NAME)
             self.open_ports[port] = open_port_result(port=port, service=service)
+        # TODO: Is this exception handling sufficient? needs investigation.
         except OSError:
             self.closed_ports[port] = closed_port_result(port=port)
 
-    async def execute(self) -> None:
+    async def perform_scan(self) -> None:
+        """
+        Gathers a coroutine for each port in the port range provided at runtime
+        and schedules them to be executed in the asyncio event loop.
+        _coroutine_for_port does not return anything, so the result set here is
+        negligible; results are appending to self.open_ports | self.closed_ports
+        for inspection later.
+        :return: None
+        """
         async with self.benchmark():
             await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))

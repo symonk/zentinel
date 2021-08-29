@@ -7,7 +7,7 @@ from ._scanner import Scanner
 def main():
     zentinel_config = build_configuration()
     scanner = Scanner(zentinel_config.target, zentinel_config.ports)
-    asyncio.run(scanner.execute())
+    asyncio.run(scanner.perform_scan())
     print("open port summary".center(100, "-"))
     print(scanner.open_ports)
     return 125
