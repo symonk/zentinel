@@ -19,7 +19,7 @@ class Scanner:
         self.scan_results: Dict[int, ConnectScanResult] = {}
 
     @contextlib.asynccontextmanager
-    async def benchmark(self) -> typing.Generator[None, None, None]:
+    async def benchmark(self) -> typing.AsyncGenerator[None, None]:
         """
         Decorator for benchmarking the actual scan runtime and updating the scanners
         :class:`float` scan_time.  This is used later for reporting.
@@ -43,11 +43,11 @@ class Scanner:
         try:
             await asyncio.open_connection(self.target, port)
             # todo: is this blocking?
-            service = socket.getservbyport(port, 'tcp')
+            service = socket.getservbyport(port, "tcp")
             self.scan_results[port] = ConnectScanResult(port, "open", service)
         except OSError:
             self.scan_results[port] = ConnectScanResult(port)
 
-    @benchmark()  # Todo: fix this, instance method deco!  
     async def execute(self) -> None:
-        await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+        async with self.benchmark():
+            await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
