@@ -13,6 +13,17 @@ from ._results import open_port_result
 
 
 class Scanner:
+    """
+    The scanner instance is carries the brunt of the port scanning activity.  By
+    default it will perform a full TCP connect scan (SYN->SYN-ACK->ACK) against
+    all of the specified ports.  Scanner is completely asynchronous and as a result
+    it will scan a remote server with lightning speed, however this can potentially
+    overwhelm a server so care is advised.
+
+        :param target: The target url, localhost by default
+        :param ports: A distinct collection of ports to scan
+    """
+
     def __init__(self, target: str, ports: typing.Set[int]):
         self.target = target
         self.ports = ports
