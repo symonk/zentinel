@@ -20,4 +20,5 @@ class AutomaticallyInstallPreCommit(develop):
         subprocess.run(["pre-commit", "install"])
 
 
-setuptools.setup(cmdclass={"develop": AutomaticallyInstallPreCommit})
+setuptools.setup()
+# setuptools.setup(cmdclass={"develop": AutomaticallyInstallPreCommit})
