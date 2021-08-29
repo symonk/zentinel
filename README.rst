@@ -18,11 +18,15 @@ Zentinel
 Zentinel
 =========
 
-Zentinel is a fully async TCP port scanner written on top of asyncio.  It's sole purpose is for administrators
-to test services that are exposed on their infrastructure with a simple python library.  Zentinel is powerful
-and highly configurable, by default it will complete full TCP connect scans on each of the ports, however to
-perform a SYN -> ACK -> RST --half-open can be specified which will prevent a full 3 way handshake and connection.
-Zentinel is lightning fast, compared to other multi threaded models.
+Zentinel is a simple python port scanner with no dependencies.  It is written on top of asyncio and it's
+sole purpose is for administrators or blue teams to quickly inspect their servers or infrastructure for
+unexpected open ports.  Currently zentinel performs a complete 3 way TCP handshake and connection on every port
+`SYN >> SYN-ACK >> ACK`, However it is lightning fast as it bypasses all the blocking IO involved in the network /
+socket communication.  Compared to a threaded model the results are astonishing.  For anything more powerful I
+would recommend the awesome `nmap` as it offers a massive range of functionality.  This project was used for me
+to improve my knowledge of async concepts.  Please read the legal disclaimer below.  `Zentinel` is not permitted
+for use in an offensive capacity or for scanning ANY infrastructure in which the person using it does not have
+full written consent to do so.
 
 ----
 
