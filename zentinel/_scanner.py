@@ -12,7 +12,7 @@ from ._results import ConnectScanResult
 
 
 class Scanner:
-    def __init__(self, target: str, ports: typing.Sequence[int] = range(1, 10000)):
+    def __init__(self, target: str, ports: typing.Set[int]):
         self.target = target
         self.ports = ports
         self.scan_time = 0.0
