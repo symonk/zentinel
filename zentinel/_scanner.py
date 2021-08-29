@@ -7,7 +7,7 @@ import time
 import typing
 from typing import Dict
 
-from ._results import ConnectScanResult
+from ._results import ScanResult
 from ._results import closed_port_result
 from ._results import open_port_result
 
@@ -17,8 +17,8 @@ class Scanner:
         self.target = target
         self.ports = ports
         self.scan_time = 0.0
-        self.open_ports: Dict[int, ConnectScanResult] = {}
-        self.closed_ports: Dict[int, ConnectScanResult] = {}
+        self.open_ports: Dict[int, ScanResult] = {}
+        self.closed_ports: Dict[int, ScanResult] = {}
 
     @contextlib.asynccontextmanager
     async def benchmark(self) -> typing.AsyncGenerator[None, None]:

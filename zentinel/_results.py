@@ -5,11 +5,11 @@ from typing import Optional
 
 
 @dataclass(repr=True, frozen=True, eq=True)
-class ConnectScanResult(ABC):
+class ScanResult(ABC):
     port: int
     status: str
     service: Optional[str] = None
 
 
-open_port_result = partial(ConnectScanResult, status="closed")
-closed_port_result = partial(ConnectScanResult, status="open")
+open_port_result = partial(ScanResult, status="open")
+closed_port_result = partial(ScanResult, status="closed")
