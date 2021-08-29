@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
-import functools
 import socket
 import time
 import typing
 from typing import Dict
 
 from ._results import ConnectScanResult
+from ._results import closed_port_result
+from ._results import open_port_result
 
 
 class Scanner:
@@ -16,7 +17,8 @@ class Scanner:
         self.target = target
         self.ports = ports
         self.scan_time = 0.0
-        self.scan_results: Dict[int, ConnectScanResult] = {}
+        self.open_ports: Dict[int, ConnectScanResult] = {}
+        self.closed_ports: Dict[int, ConnectScanResult] = {}
 
     @contextlib.asynccontextmanager
     async def benchmark(self) -> typing.AsyncGenerator[None, None]:
@@ -31,22 +33,14 @@ class Scanner:
         print(f"Total scan duration: {end_time} seconds")
         self.scan_time += end_time
 
-    @functools.cached_property
-    def open_ports(self) -> Dict[int, ConnectScanResult]:
-        return {k: v for k, v in self.scan_results.items() if v.status == "open"}
-
-    @functools.cached_property
-    def closed_ports(self) -> Dict[int, ConnectScanResult]:
-        return {k: v for k, v in self.scan_results.items() if v.status == "closed"}
-
     async def _coroutine_for_port(self, port: int) -> None:
         try:
             await asyncio.open_connection(self.target, port)
             # todo: is this blocking?
             service = socket.getservbyport(port, "tcp")
-            self.scan_results[port] = ConnectScanResult(port, "open", service)
+            self.open_ports[port] = open_port_result(port=port, service=service)
         except OSError:
-            self.scan_results[port] = ConnectScanResult(port)
+            self.closed_ports[port] = closed_port_result(port=port)
 
     async def execute(self) -> None:
         async with self.benchmark():

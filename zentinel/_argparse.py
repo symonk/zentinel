@@ -23,14 +23,16 @@ def build_configuration() -> Configuration:
         "--ports",
         "-p",
         action="store",
-        default=set(range(1025)),
+        default=range(1025),
         dest="ports",
         help="Explicit ports to perform scanning against",
     )
-    return Configuration(**vars(parser.parse_args()))
+    arguments = parser.parse_args()
+    arguments.ports = set(arguments.ports)
+    return Configuration(**vars(arguments))
 
 
-@dataclass(repr=True, frozen=True)
+@dataclass(repr=True, frozen=True, eq=True)
 class Configuration:
     target: str
     ports: typing.Set[int]
