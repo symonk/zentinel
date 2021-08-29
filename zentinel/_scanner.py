@@ -7,6 +7,7 @@ import time
 import typing
 from typing import Dict
 
+from ._constants import TCP_PROTOCOL_NAME
 from ._results import ScanResult
 from ._results import closed_port_result
 from ._results import open_port_result
@@ -46,9 +47,8 @@ class Scanner:
 
     async def _coroutine_for_port(self, port: int) -> None:
         try:
-            await asyncio.open_connection(self.target, port)
-            # todo: is this blocking?
-            service = socket.getservbyport(port, "tcp")
+            _ = await asyncio.open_connection(self.target, port)
+            service = socket.getservbyport(port, TCP_PROTOCOL_NAME)
             self.open_ports[port] = open_port_result(port=port, service=service)
         except OSError:
             self.closed_ports[port] = closed_port_result(port=port)
