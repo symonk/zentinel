@@ -13,7 +13,15 @@ from ._results import closed_port_result
 from ._results import open_port_result
 
 
-class Scanner:
+@typing.runtime_checkable
+class Scannable(typing.Protocol):
+    async def scan(self) -> None:
+        """
+        Perform a port scan.
+        """
+
+
+class Scanner(Scannable):
     """
     The scanner instance is carries the brunt of the port scanning activity.  By
     default it will perform a full TCP connect scan (SYN->SYN-ACK->ACK) against
@@ -52,7 +60,7 @@ class Scanner:
         except OSError:
             self.closed_ports[port] = closed_port_result(port=port)
 
-    async def perform_scan(self) -> None:
+    async def scan(self) -> None:
         """
         Gathers a coroutine for each port in the port range provided at runtime
         and schedules them to be executed in the asyncio event loop.

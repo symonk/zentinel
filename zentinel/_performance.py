@@ -8,13 +8,13 @@ from zentinel._output import Writable
 class BenchMarker:
     """
     Async context manager for benchmarking other code.  Primarily used to benchmark the
-    actual scan
+    actual scan.
     """
 
     def __init__(self, writable: Writable, message: str):
         self.writer = writable
-        self.start = time.perf_counter()
         self.message = message
+        self.start = time.perf_counter()
 
     async def __aenter__(self) -> BenchMarker:
         self.writer.write(self.message)

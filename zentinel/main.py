@@ -18,7 +18,7 @@ def main(args: typing.Optional[typing.List[str]] = None) -> int:
     zentinel_config = build_configuration()
     writer = StdoutStream()
     scanner = Scanner(zentinel_config.target, zentinel_config.ports, writer)
-    asyncio.run(scanner.perform_scan())
+    asyncio.run(scanner.scan())
     print("open port summary".center(100, "-"))
     print(scanner.open_ports)
     return 0
