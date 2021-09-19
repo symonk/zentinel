@@ -1,3 +1,3 @@
-from ._scanner import Scanner
+from zentinel import main
 
-__all__ = ["Scanner"]
+__all__ = ["main"]
