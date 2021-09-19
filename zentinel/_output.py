@@ -16,6 +16,6 @@ class FileStream(Writable):
     ...
 
 
-class TerminalWriter:
+class Writer:
     def __init__(self, writable: Writable) -> None:
         self.writer = writable
