@@ -5,6 +5,7 @@ import re
 import typing
 
 from ._configuration import Configuration
+from ._ports import COMMON_PORTS
 
 
 def parse_range(arg: str) -> typing.Set[int]:
@@ -42,7 +43,7 @@ def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> C
         "--ports",
         "-p",
         action="store",
-        default=set(range(0, 65536)),  # TCP protocol supports 16bits for the port number pow(2, 16) - 1
+        default=COMMON_PORTS,  # TCP protocol supports 16bits for the port number pow(2, 16) - 1
         type=parse_range,
         dest="ports",
         help="Explicit ports to perform scanning against. "
