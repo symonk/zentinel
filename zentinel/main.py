@@ -19,7 +19,5 @@ def main(args: typing.Optional[typing.Sequence[str]] = None) -> int:
     zentinel_config = build_configuration(args)
     writer = WriterComposite().add_handler(StdoutWriter())
     scanner = Scanner(zentinel_config.target, zentinel_config.ports, writer)
-    asyncio.run(scanner.scan())
-    writer.write("open port summary".center(100, "-"))
-    writer.write(str(scanner.open_ports))
+    asyncio.get_event_loop().run_until_complete(scanner.scan())
     return 0

@@ -69,6 +69,9 @@ class Scanner(Scannable):
         for inspection later.
         :return: None
         """
+        self.writer.write(f"Launching port scan against: {self.target}")
         message = f"Executing coroutines for ports in range: {min(self.ports)} -> {max(self.ports)}"
         async with BenchMarker(self.writer, message):
             await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+        self.writer.write("open port summary".center(100, "-"))
+        self.writer.write(str(self.open_ports))
