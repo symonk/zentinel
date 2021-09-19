@@ -42,7 +42,7 @@ def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> C
         "--ports",
         "-p",
         action="store",
-        default=set(range(0, 65536)),
+        default=set(range(0, 65536)),  # TCP protocol supports 16bits for the port number pow(2, 16) - 1
         type=parse_range,
         dest="ports",
         help="Explicit ports to perform scanning against. "
