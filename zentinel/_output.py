@@ -9,13 +9,9 @@ class Writable(Protocol):
 
 
 class StdoutStream(Writable):
-    ...
+    def write(self, message: str) -> None:
+        print(message)
 
 
 class FileStream(Writable):
     ...
-
-
-class Writer:
-    def __init__(self, writable: Writable) -> None:
-        self.writer = writable
