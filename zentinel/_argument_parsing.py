@@ -24,7 +24,7 @@ def parse_range(arg: str) -> typing.Set[int]:
     return set(range(low_bound, high_bound))
 
 
-def build_configuration() -> Configuration:
+def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> Configuration:
     """
     Builds the runtime configurations dictionary from sys.argv.
     """
@@ -49,6 +49,6 @@ def build_configuration() -> Configuration:
         "By default, 0-65535 will be scanned. "
         "A hyphen separated range can be provided such as `--ports 100-600` for a specific scan range",
     )
-    arguments = parser.parse_args()
+    arguments = parser.parse_args(args)
     arguments.ports = set(arguments.ports)
     return Configuration(**vars(arguments))

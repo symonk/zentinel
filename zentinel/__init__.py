@@ -1,3 +1,3 @@
-from zentinel import main
+from zentinel.main import main
 
 __all__ = ["main"]

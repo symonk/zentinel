@@ -14,7 +14,7 @@ class Writable(Protocol):
 class StdoutWriter(Writable):
 
     def write(self, /, text: str) -> None:
-        print(text)
+        print(text, flush=True)
 
 
 class WriterComposite(Writable):
