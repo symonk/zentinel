@@ -1,7 +1,7 @@
 import asyncio
 import typing
 
-from ._argparse import build_configuration
+from ._argument_parsing import build_configuration
 from ._output import StdoutWriter
 from ._output import WriterComposite
 from ._scanner import Scanner

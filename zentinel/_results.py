@@ -14,5 +14,6 @@ class ScanResult(ABC):
     service: Optional[str] = None
 
 
+# todo: revisit this.
 open_port_result = partial(ScanResult, status=OPEN_STATUS)
 closed_port_result = partial(ScanResult, status=CLOSED_STATUS)
