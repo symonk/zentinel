@@ -1,8 +1,5 @@
-import pytest
 
 from zentinel import main
-
-pytestmark = pytest.mark.skip  # github won't like me running these unstubbed on their infra!
 
 
 def test_default_target(capsys):

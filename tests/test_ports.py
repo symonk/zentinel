@@ -2,8 +2,6 @@ import pytest
 
 from zentinel import main
 
-pytestmark = pytest.mark.skip  # github won't like me running these unstubbed on their infra!
-
 
 def test_ports_are_correct(capsys) -> None:
     main(("--ports", "10-20"))
