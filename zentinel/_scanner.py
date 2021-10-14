@@ -8,9 +8,9 @@ from typing import Dict
 from ._constants import TCP_PROTOCOL_NAME
 from ._output import Writable
 from ._performance import BenchMarker
+from ._results import ClosedPortResult
+from ._results import OpenPortResult
 from ._results import ScanResult
-from ._results import closed_port_result
-from ._results import open_port_result
 
 
 @typing.runtime_checkable
@@ -55,10 +55,10 @@ class Scanner(Scannable):
             _ = await asyncio.open_connection(self.target, port)
             # TODO: Is this socket blocking IO? is there a builtins async equivalent? needs investigation.
             service = socket.getservbyport(port, TCP_PROTOCOL_NAME)
-            self.open_ports[port] = open_port_result(port=port, service=service)
+            self.open_ports[port] = OpenPortResult(port=port, service=service)
         # TODO: Is this exception handling sufficient? needs investigation.
         except OSError:
-            self.closed_ports[port] = closed_port_result(port=port)
+            self.closed_ports[port] = ClosedPortResult(port=port)
 
     async def scan(self) -> None:
         """

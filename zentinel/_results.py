@@ -1,6 +1,5 @@
 from abc import ABC
 from dataclasses import dataclass
-from functools import partial
 from typing import Optional
 
 from ._constants import CLOSED_STATUS
@@ -14,6 +13,11 @@ class ScanResult(ABC):
     service: Optional[str] = None
 
 
-# todo: revisit this.
-open_port_result = partial(ScanResult, status=OPEN_STATUS)
-closed_port_result = partial(ScanResult, status=CLOSED_STATUS)
+@dataclass(frozen=True)
+class OpenPortResult(ScanResult):
+    status: str = OPEN_STATUS
+
+
+@dataclass(frozen=True)
+class ClosedPortResult(ScanResult):
+    status: str = CLOSED_STATUS
