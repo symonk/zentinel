@@ -20,16 +20,16 @@ repos:
       - id: debug-statements
       - id: detect-private-key
       - id: requirements-txt-fixer
-  -   repo: https://github.com/pre-commit/mirrors-isort
-      rev: v5.9.3
-      hooks:
-      -   id: isort
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.9.3
+    hooks:
+      - id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.910-1
     hooks:
-    -   id: mypy
+      - id: mypy
         files: zentinel/
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
     hooks:
       - id: flake8
