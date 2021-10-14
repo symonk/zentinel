@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import time
+import types
+import typing
 
 from zentinel._output import Writable
 
@@ -20,5 +22,10 @@ class BenchMarker:
         self.writer.write(self.message)
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(
+        self,
+        exc_type: typing.Optional[typing.Type[BaseException]],
+        exc_val: typing.Optional[BaseException],
+        traceback: typing.Optional[types.TracebackType],
+    ):
         self.writer.write(f"Total scan duration: {time.perf_counter() - self.start}")
