@@ -15,6 +15,10 @@ from ._results import ScanResult
 
 @typing.runtime_checkable
 class Scannable(typing.Protocol):
+    """
+    A simple protocol for something which can perform a port scan.
+    """
+
     async def scan(self) -> None:
         """
         Perform a port scan.
