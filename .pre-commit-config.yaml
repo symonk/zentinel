@@ -1,7 +1,7 @@
 exclude: ^(.tox|doc|ci/templates|)(/|$)
 repos:
-  - repo: 'https://github.com/ambv/black'
-    rev: 18.6b4
+  - repo: https://github.com/ambv/black
+    rev: 21.9b0
     hooks:
       - id: black
         args:
@@ -9,24 +9,27 @@ repos:
           - '--quiet'
           - '--line-length=120'
         language_version: python3.8
-  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
-    rev: v1.3.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
-      - id: flake8
       - id: check-case-conflict
       - id: check-docstring-first
       - id: debug-statements
       - id: detect-private-key
       - id: requirements-txt-fixer
   -   repo: https://github.com/pre-commit/mirrors-isort
-      rev: '45886b75933e6460aa4883fc9b93452528d4384b'
+      rev: v5.9.3
       hooks:
       -   id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.902
+    rev: v0.910-1
     hooks:
     -   id: mypy
         files: zentinel/
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
