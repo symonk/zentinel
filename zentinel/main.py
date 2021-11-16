@@ -19,5 +19,5 @@ def main(args: typing.Optional[typing.Sequence[str]] = None) -> int:
     zentinel_config = build_configuration(args)
     writer = WriterComposite().add_handler(StdoutWriter())
     scanner = Scanner(zentinel_config.target, zentinel_config.ports, writer)
-    asyncio.get_event_loop().run_until_complete(scanner.scan())
+    asyncio.run(scanner.scan())
     return 0
