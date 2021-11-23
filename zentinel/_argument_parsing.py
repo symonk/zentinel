@@ -47,7 +47,7 @@ def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> C
         type=parse_range,
         dest="ports",
         help="Explicit ports to perform scanning against. "
-        "By default, 0-65535 will be scanned. "
+        "By default, a range of common ports will be scanned. "
         "A hyphen separated range can be provided such as `--ports 100-600` for a specific scan range",
     )
     arguments = parser.parse_args(args)
