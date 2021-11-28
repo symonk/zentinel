@@ -54,6 +54,24 @@ def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> C
         "By default a common set of ports are set, see: `_ports.py`. ",
     )
     parser.add_argument(
+        "--report-first",
+        "-rf",
+        action="store_true",
+        default=False,
+        dest="report_first",
+        help="Cancel additional coroutines if an open port is found. "
+        "By default, zentinel will scan the range and report on all.",
+    )
+    parser.add_argument(
+        "--verbose",
+        "-v",
+        action="count",
+        default=0,
+        dest="verbosity",
+        help="The verbosity level of the execution; ranging from `-v` to `-vvv` for varying levels "
+        "of verbosity and output.",
+    )
+    parser.add_argument(
         "--format",
         action="store",
         choices=("json",),

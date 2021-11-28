@@ -27,14 +27,14 @@ class Scannable(typing.Protocol):
 
 class Scanner(Scannable):
     """
-    The scanner instance is carries the brunt of the port scanning activity.  By
-    default it will perform a full TCP connect scan (SYN->SYN-ACK->ACK) against
-    all of the specified ports.  Scanner is completely asynchronous and as a result
-    it will scan a remote server with lightning speed, however this can potentially
-    overwhelm a server so care is advised.
+    Responsible for performing the actual TCP port scan.  By default it will perform
+    a full TCP connect scan (SYN->SYN-ACK->ACK) against all of the specified ports.
+    Scanner is completely asynchronous and as a result it will scan a remote server with
+    lightning speed.
 
     :param target: The target url, localhost by default
-    :param ports: A distinct collection of ports to scan
+    :param ports: A distinct set of ports to scan
+    :param writer: A Writable instance, responsible for managing output, stdout by default.
     """
 
     def __init__(self, target: str, ports: typing.Set[int], writer: Writable):
@@ -77,5 +77,11 @@ class Scanner(Scannable):
 
         async with BenchMarker(self.writer, message):
             await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+            await self.report()
+
+    async def report(self) -> None:
         self.writer.write("open port summary".center(100, "-"))
-        self.writer.write(str(self.open_ports))
+        if ports := self.open_ports:
+            self.writer.write(str(ports))
+            return
+        self.writer.write("No open ports.")

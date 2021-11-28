@@ -10,4 +10,6 @@ class Configuration:
 
     target: str
     ports: typing.Set[int]
+    verbosity: int
+    report_first: bool
     format: typing.Optional[str]

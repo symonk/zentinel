@@ -43,8 +43,8 @@ class WriterComposite(Writable):
     write it to multiple places if required.
     """
 
-    def __init__(self) -> None:
-        self.handlers: typing.MutableSequence[Writable] = []
+    def __init__(self, default_handlers: typing.Optional[typing.MutableSequence[Writable]] = None) -> None:
+        self.handlers: typing.MutableSequence[Writable] = default_handlers or []
 
     def add_handler(self, handler: Writable) -> WriterComposite:
         if handler not in self.handlers:

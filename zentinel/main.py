@@ -17,7 +17,7 @@ def main(args: typing.Optional[typing.Sequence[str]] = None) -> int:
     :return: An integer representing the exit code of executing zentinel.
     """
     zentinel_config = build_configuration(args)
-    writer = WriterComposite().add_handler(StdoutWriter())
+    writer = WriterComposite([StdoutWriter()])
     scanner = Scanner(zentinel_config.target, zentinel_config.ports, writer)
     asyncio.run(scanner.scan())
     return 0
