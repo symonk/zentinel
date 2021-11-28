@@ -7,12 +7,11 @@ from typing import Protocol
 
 class Writable(Protocol):
     def write(self, /, text: str) -> None:
-        """ Write the message to the chosen stream."""
+        """Write the message to the chosen stream."""
         raise NotImplementedError
 
 
 class StdoutWriter(Writable):
-
     def write(self, /, text: str) -> None:
         print(text, flush=True)
 
@@ -22,6 +21,7 @@ class WriterComposite(Writable):
     Compose a sequence of writable objects so that when writing output we can easily
     write it to multiple places if required.
     """
+
     def __init__(self) -> None:
         self.handlers: typing.MutableSequence[Writable] = []
 
