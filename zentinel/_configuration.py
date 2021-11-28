@@ -10,3 +10,4 @@ class Configuration:
 
     target: str
     ports: typing.Set[int]
+    format: typing.Optional[str]

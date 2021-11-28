@@ -5,6 +5,7 @@ import re
 import typing
 
 from ._configuration import Configuration
+from ._constants import TCP_PORT_LIMIT
 from ._ports import COMMON_PORTS
 
 
@@ -22,6 +23,8 @@ def parse_range(arg: str) -> typing.Set[int]:
     if not match:
         raise argparse.ArgumentTypeError("--ports should be a hyphen separated range of ports, e.g `--ports 100-200`")
     low_bound, high_bound = map(int, match.groups())
+    if high_bound > TCP_PORT_LIMIT:
+        raise argparse.ArgumentTypeError(f"TCP port limit is: {TCP_PORT_LIMIT}, it was exceeded by: {arg}")
     return set(range(low_bound, high_bound))
 
 
@@ -49,6 +52,14 @@ def build_configuration(args: typing.Optional[typing.Sequence[str]] = None) -> C
         help="Explicit ports to perform scanning against. "
         "A hyphen separated range can be provided such as `--ports 100-600` for a specific scan range. "
         "By default a common set of ports are set, see: `_ports.py`. ",
+    )
+    parser.add_argument(
+        "--format",
+        action="store",
+        choices=("json",),
+        dest="format",
+        default=None,
+        help="Format the output.  Currently only `json` is available",
     )
     arguments = parser.parse_args(args)
     arguments.ports = set(arguments.ports)

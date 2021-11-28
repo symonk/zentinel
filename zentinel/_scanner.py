@@ -57,8 +57,7 @@ class Scanner(Scannable):
         """
         try:
             _ = await asyncio.open_connection(self.target, port)
-            # TODO: Is this socket blocking IO? is there a builtins async equivalent? needs investigation.
-            service = socket.getservbyport(port, TCP_PROTOCOL_NAME)
+            service = socket.getservbyport(port, TCP_PROTOCOL_NAME)  # Todo: Limitation on TCP services for future.
             self.open_ports[port] = OpenPortResult(port=port, service=service)
         # TODO: Is this exception handling sufficient? needs investigation.
         except OSError:

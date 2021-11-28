@@ -1,8 +1,29 @@
 from __future__ import annotations
 
 import contextlib
+import json
 import typing
 from typing import Protocol
+
+
+class Formattable(Protocol):
+    def format(self, /, text: str) -> str:
+        """
+        Given a string, format it in some appropriate way.
+        :param text: the original (unformatted) string.
+        :return: The formatted string.
+        """
+        raise NotImplementedError
+
+
+class JsonFormatter(Formattable):
+    def format(self, /, text: str) -> str:
+        """
+        Convert the text into a json representation of itself.
+        :param text: The unformatted text
+        :return: The formatted text
+        """
+        return str(json.loads(text))
 
 
 class Writable(Protocol):
