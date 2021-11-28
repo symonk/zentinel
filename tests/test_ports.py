@@ -17,7 +17,7 @@ def test_invalid_port_regex(run_zentinel, capsys) -> None:
 
 
 def test_exceeding_tcp_limit(run_zentinel, capsys):
-    with pytest.raises(SystemExit) as err:
+    with pytest.raises(SystemExit):
         result = run_zentinel(("--ports", "300-75000"))
         assert result == 2
     _, err = capsys.readouterr()
