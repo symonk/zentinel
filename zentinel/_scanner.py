@@ -76,7 +76,7 @@ class Scanner(Scannable):
         message = f"Executing coroutines for ports in range: {min(self.ports)} -> {max(self.ports)}"
 
         async with BenchMarker(self.writer, message):
-            await asyncio.gather(*(self._coroutine_for_port(p) for p in self.ports))
+            await asyncio.gather(*(self._coroutine_for_port(port) for port in self.ports))
             await self.report()
 
     async def report(self) -> None:
