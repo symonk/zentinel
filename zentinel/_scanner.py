@@ -80,6 +80,7 @@ class Scanner(Scannable):
             await self.report()
 
     async def report(self) -> None:
+        """Handles report and summary information to the writer."""
         self.writer.write("open port summary".center(100, "-"))
         if ports := self.open_ports:
             self.writer.write(str(ports))
