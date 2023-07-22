@@ -4,7 +4,7 @@ version = "0.0.3"
 description = "Asynchronous port scanning with python"
 authors = ["symonk <jackofspaces@gmail.com>"]
 license = "Apache License 2.0"
-readme = "README.md"
+readme = "README.rst"
 
 [tool.poetry.dependencies]
 python = "^3.8"
